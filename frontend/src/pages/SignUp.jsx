@@ -7,6 +7,7 @@ import InputBox from "../components/InputBox";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { BACKEND_URL } from "../config";
 function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,17 +16,14 @@ function SignUp() {
   const navigate = useNavigate();
   async function handleSignUp() {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signup",
-        {
-          username,
-          password,
-          firstName,
-          lastName,
-        }
-      );
-      localStorage.setItem("token",response.data.token);
-      localStorage.setItem("name",username.split("@")[0]);
+      const response = await axios.post(`${BACKEND_URL}/api/v1/user/signup`, {
+        username,
+        password,
+        firstName,
+        lastName,
+      });
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("name", username.split("@")[0]);
       navigate("/dashboard");
     } catch (err) {
       alert("Invalid credentials please try again");

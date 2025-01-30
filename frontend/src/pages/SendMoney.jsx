@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import InputBox from "../components/InputBox";
 import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 function SendMoney() {
   const [amount, setAmount] = useState(0);
@@ -13,14 +14,13 @@ function SendMoney() {
   const navigate = useNavigate();
 
   async function handleButton() {
-      
     if (amount <= 0 || isNaN(amount)) {
       setError("Please enter a valid amount.");
       return;
     }
     try {
       await axios.post(
-        "http://localhost:3000/api/v1/account/transfer",
+        `${BACKEND_URL}/api/v1/account/transfer`,
         {
           to: id,
           amount: parseInt(amount),
@@ -31,7 +31,7 @@ function SendMoney() {
           },
         }
       );
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (error) {
       setError(error.response?.data?.msg);
     }

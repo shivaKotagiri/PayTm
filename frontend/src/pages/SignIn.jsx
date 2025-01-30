@@ -7,21 +7,19 @@ import Warning from "../components/Warning";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { BACKEND_URL } from "../config";
 function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   async function handleSignIn() {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signin",
-        {
-          username,
-          password,
-        }
-      );
+      const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, {
+        username,
+        password,
+      });
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("name",username.split("@")[0]);
+      localStorage.setItem("name", username.split("@")[0]);
       navigate("/dashboard");
     } catch (err) {
       alert("Invalid credentials please try again");

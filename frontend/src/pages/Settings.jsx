@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 function Settings() {
   const navigate = useNavigate();
@@ -11,35 +12,33 @@ function Settings() {
   const [password, setPassword] = useState("");
 
   async function handleButton() {
-    if(currentPassword!=password){
+    if (currentPassword != password) {
       alert("The given password is not similar to current password");
       return;
-    }
-    else if(firstName==""||lastName==""){
+    } else if (firstName == "" || lastName == "") {
       alert("Please enter the name");
       return;
-    }
-    else if(password<8){
+    } else if (password < 8) {
       alert("The password must be greater than 8 characters");
       return;
-    }
-    else{
-      try{
-        await axios.put("http://localhost:3000/api/v1/user/",{
-          firstName:firstName.trim(),
-          lastName:lastName.trim(),
-          password:password.trim(),
-        },
-      {
-        headers:{
-          Authorization:"Bearer "+localStorage.getItem("token"),
-        }
-
-      });
-      alert("Profile Updated Successfully");
-      navigate('/dashboard');
-      }
-      catch(err){
+    } else {
+      try {
+        await axios.put(
+          `${BACKEND_URL}/api/v1/user/`,
+          {
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            password: password.trim(),
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        );
+        alert("Profile Updated Successfully");
+        navigate("/dashboard");
+      } catch (err) {
         alert("Something Went Wrong, Try Again Later!!!");
         console.log(err);
       }
@@ -47,16 +46,15 @@ function Settings() {
   }
 
   async function handleDeletion() {
-    try{
-      await axios.delete("http://localhost:3000/api/v1/user/delete",{
-        headers:{
-          Authorization:"Bearer "+localStorage.getItem("token"),
+    try {
+      await axios.delete(`${BACKEND_URL}/api/v1/user/delete`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       });
       localStorage.removeItem("token");
-      navigate('/');
-    }
-    catch(err){
+      navigate("/");
+    } catch (err) {
       alert("Unable to delete the account, Try again Later!!!");
       console.log(err);
     }
