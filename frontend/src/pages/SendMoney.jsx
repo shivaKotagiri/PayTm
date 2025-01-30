@@ -7,7 +7,8 @@ import { BACKEND_URL } from "../config";
 
 function SendMoney() {
   const [amount, setAmount] = useState(0);
-  const [error, setError] = useState(""); // State for handling error messages
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
   const name = searchParams.get("name");
@@ -18,6 +19,9 @@ function SendMoney() {
       setError("Please enter a valid amount.");
       return;
     }
+
+    setLoading(true);
+
     try {
       await axios.post(
         `${BACKEND_URL}/api/v1/account/transfer`,
@@ -34,6 +38,8 @@ function SendMoney() {
       navigate("/dashboard");
     } catch (error) {
       setError(error.response?.data?.msg);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -60,14 +66,19 @@ function SendMoney() {
               onChange={(e) => setAmount(e.target.value)}
             />
             {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
-            <div>
+
+            {loading ? (
+              <div className="flex justify-center py-2">
+                <span className="w-8 h-8 border-4 border-t-transparent border-blue-500 rounded-full animate-spin border-solid"></span>
+              </div>
+            ) : (
               <button
                 onClick={handleButton}
                 className="bg-[#22c45e] cursor-pointer hover:bg-[#22c40e] text-white font-semibold py-2 px-4 rounded-md w-full text-sm"
               >
                 Initiate Transfer
               </button>
-            </div>
+            )}
           </div>
         </div>
       </div>

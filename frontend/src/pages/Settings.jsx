@@ -62,13 +62,12 @@ function Settings() {
 
   return (
     <div className="flex flex-col p-4 md:p-8 items-center bg-[#7f7f7f] min-h-screen font-sans">
-      {/* Settings Container */}
+      
       <div className="w-full max-w-xs sm:max-w-sm md:max-w-md space-y-4 bg-white shadow-lg p-4 md:p-6 rounded-md">
         <h1 className="font-sans text-2xl md:text-3xl font-bold text-gray-800 mb-5 text-center">
           Account Settings
         </h1>
 
-        {/* First Name and Last Name Section */}
         <div className="space-y-2">
           <h2 className="text-lg font-semibold text-gray-700">Update Name</h2>
           <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
@@ -88,7 +87,6 @@ function Settings() {
         </div>
         <hr className="border-gray-300" />
 
-        {/* Password Section */}
         <div className="space-y-2">
           <h2 className="text-lg font-semibold text-gray-700">Password</h2>
           <div className="space-y-3">
@@ -109,7 +107,6 @@ function Settings() {
         </div>
         <hr className="border-gray-300" />
 
-        {/* Delete Account Section */}
         <div className="space-y-1">
           <h2 className="text-lg font-semibold text-black">Delete Account</h2>
           <p className="text-gray-600 text-sm md:text-base">

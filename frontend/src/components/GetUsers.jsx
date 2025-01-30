@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function GetUsers({ user }) {
   const navigate = useNavigate();
   function handleButton() {
-    navigate("/send?id="+user._id+"&name="+user.firstName);
+    navigate("/send?id=" + user._id + "&name=" + user.firstName);
   }
   return (
     <>
