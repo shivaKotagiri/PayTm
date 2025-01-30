@@ -1,7 +1,3 @@
-Here's a sample README file for your PayTm project:
-
----
-
 # PayTm - Simple Payments App
 
 This project is a basic and initial version of a payments app similar to PayTm. It includes both a frontend and backend:
